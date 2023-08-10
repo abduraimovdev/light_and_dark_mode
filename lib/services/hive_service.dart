@@ -9,7 +9,9 @@ class HiveDb {
 
   static Future<void> init() async{
     await Hive.initFlutter();
-    Hive.openBox<bool>(settings);
+    if(!Hive.isBoxOpen(settings)) {
+      await Hive.openBox<bool>(settings);
+    }
   }
 
   void storeData(bool isLight) async {
